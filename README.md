@@ -1,12 +1,11 @@
 Proyecto de Automatización de Solicitud de Taxi Comfort
 ---
-Este proyecto se centra en la automatización del proceso de solicitar un taxi con la tarifa Comfort. Se incluye un conjunto de pruebas para verificar la correcta implementación de este proceso.
+El objetivo principal del proyecto es realizar la automatización del proceso de solicitar un taxi con la tarifa Comfort, además de la realización de pruebas para verificar su correcta implementación.
 
 Archivos del Proyecto
 ---
 -data.py: Contiene los valores de prueba que se utilizan en las pruebas automatizadas.
-locators.py: Define los localizadores necesarios para la automatización.
--method.py: Proporciona los métodos auxiliares usados en las pruebas.
+-main.py: 
 
 Pruebas de Automatización
 ---
@@ -23,15 +22,14 @@ El proyecto se divide en un total de 8 pruebas automatizadas, cada una abordando
 
 Ejecución de las Pruebas
 ---
--Para ejecutar las pruebas, asegúrate de tener configurado Python 3
--Tener instalado Selenium
+-configurar Python 3
+-Instalar Selenium
 -Instalar y ejecutar las pruebas desde el framework pytest.
--Las pruebas se realizan sobre GoogleChrom, asegurarse de tener la version adecuada de GoogleChromeDriver.
+-Las pruebas se realizan sobre Google Chrome
+-Tener la version adecuada de GoogleChromeDriver.
 
 Instalación
 ---
 -Clona este repositorio.
 -Instalar Selenium
 -Instalar Pytest
--Ejecuta las pruebas con el siguiente comando:
--pytest /sprint_8/test.py
