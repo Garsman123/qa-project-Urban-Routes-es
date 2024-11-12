@@ -37,7 +37,7 @@ def retrieve_phone_code(driver) -> str:
 class UrbanRoutesPage:
     from_field = (By.ID, 'from')
     to_field = (By.ID, 'to')
-taxi_button = (By.CLASS_NAME, "button round")
+    taxi_button = (By.XPATH, '//button[@class="button round"]')
     set_rote = (By.CLASS_NAME, "dst-picker")
     comfort_button = (By.XPATH, '//*[@id="root"]/div/div[3]/div[3]/div[2]/div[1]/div[5]')
     select_phone_insert = (By.CLASS_NAME, 'np-text')
