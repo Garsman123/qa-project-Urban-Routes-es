@@ -54,7 +54,7 @@ class UrbanRoutesPage:
     add_credit_card = (By.XPATH, '//*[@id="number"]')
     card_cvv = (By.XPATH, '//div[@class="card-code-input"]/input[@id="code"]')
     agree_card = (By.XPATH, '//*[text()="Agregar"]')
-    x_button = (By.XPATH, '//*[@id="root"]/div/div[2]/div[2]/div[1]/button')
+    x_button = (By.XPATH, '//<button [class="close-button section-close"></button>])
     cell_next = (By.XPATH, '//*[text()="Confirmar"]')
     driver_message = (By.XPATH, '//*[@id="comment"]')
     write_message = (By.CSS_SELECTOR, "#comment")
@@ -63,6 +63,7 @@ class UrbanRoutesPage:
     ice_cream_counter = (By.CLASS_NAME, "counter-plus")
     taxi_search_button = (By.CLASS_NAME, "smart-button-main")
     modal_taxi = (By.CLASS_NAME, "order-details")  # cambiar a Class name
+    order_header_title = (By.CLASS_NAME, 'order-header-title')
 
     def __init__(self, driver):
         self.driver = driver
@@ -225,6 +226,8 @@ class UrbanRoutesPage:
         self.driver.find_element(*self.modal_taxi)
         self.driver.implicitly_wait(120)
 
+    def get_order_header_title(self):
+        return self.driver.find_element(*locators.UrbanRoutesPage.order_header_title).text
 
 class TestUrbanRoutes:
     driver = None
@@ -258,13 +261,15 @@ class TestUrbanRoutes:
         assert routes_page.get_from() == address_from
         assert routes_page.get_to() == address_to
 
-        # Seleccionar taxi
-        routes_page.select_taxi_button()
-
         # Seleccionar la tarifa Comfort
+        def test_set_comfort(self):
+        routes_page.select_taxi_button()
         routes_page.select_comfort_rate()
-
+        comfort_status = routes_page.Select_comfort_rate()
+        assert comfort_status == True
+        
         # Rellenar el número de teléfono
+        def test_set_phone_number(self):
         phone_number = data.phone_number
         self.driver.implicitly_wait(10)  # cambio del timeslep
         routes_page.set_phone()
@@ -279,6 +284,7 @@ class TestUrbanRoutes:
         self.driver.implicitly_wait(50)  # cambio del timeslep
 
         # Agregar una tarjeta de crédito
+        def test_add_card(self):
         self.driver.implicitly_wait(20)  # cambio del timeslep
         routes_page.click_card()
         self.driver.implicitly_wait(20)  # cambio del timeslep
@@ -289,27 +295,37 @@ class TestUrbanRoutes:
         assert routes_page.get_cvv_card() == data.card_code      # agregar asserts
 
         # Escribir un mensaje para el controlador
+        def test_write_message(self):
         message = data.message_for_driver
         routes_page.write_drive_message(message)
         assert routes_page.get_message() == data.message_for_driver  # agregar assert
 
         # Pedir una manta y pañuelos
+        def test_blanket(self):
         self.driver.implicitly_wait(20)  # cambio del timeslep
         routes_page.request_blanket_and_tissues()
         assert routes_page.get_blanket_and_scarves() == routes_page.request_blanket_and_tissues()  # agregar assert
 
         # Pedir 2 helados
+        def test_add_icecream(self):
         self.driver.implicitly_wait(20)  # cambio del timeslep
         routes_page.request_ice_cream()
         assert routes_page.get_ice_cream() == routes_page.request_ice_cream()  # agregar Assert
 
         # Buscar un taxi
+        def test_find_driver(self):
         self.driver.implicitly_wait(50)  # cambio del timeslep
         routes_page.search_taxi()
+        order_header_title = routes_page.get_order_header_title()
+        assert  'Buscar automóvil' in order_header_title
 
         # Esperar a que aparezca la información del conductor en el modal
+        def test_wait_driver_information(self):
         self.driver.implicitly_wait(50)  # aumentar tiempo
         routes_page.wait_for_driver_info()
+        order_header_title = routes_page.get_order_header_title()
+        assert 'El conductor llegará' in order_header_title
+        
 
     @classmethod
     def teardown_class(cls):
