@@ -240,7 +240,7 @@ class TestUrbanRoutes:
         cls.driver = webdriver.Chrome()
 
     def test_set_route(self):
-       self.driver.get(data.urban_routes_url)
+        self.driver.get(data.urban_routes_url)
         self.routes_page = UrbanRoutesPage(self.driver)
         address_from = data.address_from
         address_to = data.address_to
