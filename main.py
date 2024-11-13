@@ -241,97 +241,97 @@ class TestUrbanRoutes:
 
     def test_set_route(self):
        self.driver.get(data.urban_routes_url)
-        routes_page = UrbanRoutesPage(self.driver)
+        self.routes_page = UrbanRoutesPage(self.driver)
         address_from = data.address_from
         address_to = data.address_to
         time.sleep(10)
-        routes_page.set_route(address_from, address_to)
-        assert routes_page.get_from() == address_from
-        assert routes_page.get_to() == address_to
+        self.routes_page.set_route(address_from, address_to)
+        assert self.routes_page.get_from() == address_from
+        assert self.routes_page.get_to() == address_to
 
    def test_full_taxi_request_process(self):
         self.driver.get(data.urban_routes_url)
-        routes_page = UrbanRoutesPage(self.driver)
+        self.routes_page = UrbanRoutesPage(self.driver)
 
     # Configurar la dirección
         address_from = data.address_from
         address_to = data.address_to
         self.driver.implicitly_wait(10)  # cambio del timeslep
-        routes_page.set_route(address_from, address_to)
-        assert routes_page.get_from() == address_from
-        assert routes_page.get_to() == address_to
+        self.routes_page.set_route(address_from, address_to)
+        assert self.routes_page.get_from() == address_from
+        assert self.routes_page.get_to() == address_to
 
     # Seleccionar la tarifa Comfort
     def test_set_comfort(self):
-        routes_page = UrbanRoutesPage(self.driver)
-        routes_page.select_taxi_button()
-        routes_page.select_comfort_rate()
-        comfort_status = routes_page.Select_comfort_rate()
+        self.routes_page = UrbanRoutesPage(self.driver)
+        self.routes_page.select_taxi_button()
+        self.routes_page.select_comfort_rate()
+        comfort_status = self.routes_page.Select_comfort_rate()
         assert comfort_status == True
 
     # Rellenar el número de teléfono
     def test_set_phone_number(self):
-        routes_page = UrbanRoutesPage(self.driver)
+        self.routes_page = UrbanRoutesPage(self.driver)
         phone_number = data.phone_number
         self.driver.implicitly_wait(10)  # cambio del timeslep
-        routes_page.set_phone()
-        assert routes_page.get_phone() == phone_number
+        self.routes_page.set_phone()
+        assert self.routes_page.get_phone() == phone_number
 
         # Recuperar el código de confirmación del teléfono
-        routes_page.the_next_button()
+        self.routes_page.the_next_button()
         self.driver.implicitly_wait(50)  # cambio del timeslep
-        routes_page.code_number()
+        self.routes_page.code_number()
         self.driver.implicitly_wait(50)  # cambio del timeslep
-        routes_page.send_cell_info()
+        self.routes_page.send_cell_info()
         self.driver.implicitly_wait(50)  # cambio del timeslep
 
     # Agregar una tarjeta de crédito
     def test_add_card(self):
-        routes_page = UrbanRoutesPage(self.driver)
+        self.routes_page = UrbanRoutesPage(self.driver)
         self.driver.implicitly_wait(20)  # cambio del timeslep
-        routes_page.click_card()
+        self.routes_page.click_card()
         self.driver.implicitly_wait(20)  # cambio del timeslep
-        routes_page.add_card()
+        self.routes_page.add_card()
         self.driver.implicitly_wait(20)  # cambio del timeslep
-        routes_page.close_window()
-        assert routes_page.get_card_input() == data.card_number  # agregar asserts
-        assert routes_page.get_cvv_card() == data.card_code      # agregar asserts
+        self.routes_page.close_window()
+        assert self.routes_page.get_card_input() == data.card_number  # agregar asserts
+        assert self.routes_page.get_cvv_card() == data.card_code      # agregar asserts
 
     # Escribir un mensaje para el controlador
     def test_write_message(self):
-        routes_page = UrbanRoutesPage(self.driver)
+        self.routes_page = UrbanRoutesPage(self.driver)
         message = data.message_for_driver
-        routes_page.write_drive_message(message)
-        assert routes_page.get_message() == data.message_for_driver  # agregar assert
+        self.routes_page.write_drive_message(message)
+        assert self.routes_page.get_message() == data.message_for_driver  # agregar assert
 
     # Pedir una manta y pañuelos
     def test_blanket(self):
-        routes_page = UrbanRoutesPage(self.driver)
+        self.routes_page = UrbanRoutesPage(self.driver)
         self.driver.implicitly_wait(20)  # cambio del timeslep
-        routes_page.request_blanket_and_tissues()
-        assert routes_page.get_blanket_and_scarves() == routes_page.request_blanket_and_tissues()  # agregar assert
+        self.routes_page.request_blanket_and_tissues()
+        assert self.routes_page.get_blanket_and_scarves() == self.routes_page.request_blanket_and_tissues()  # agregar assert
 
     # Pedir 2 helados
     def test_add_icecream(self):
-        routes_page = UrbanRoutesPage(self.driver)
+        self.routes_page = UrbanRoutesPage(self.driver)
         self.driver.implicitly_wait(20)  # cambio del timeslep
-        routes_page.request_ice_cream()
-        assert routes_page.get_ice_cream() == routes_page.request_ice_cream()  # agregar Assert
+        self.routes_page.request_ice_cream()
+        assert self.routes_page.get_ice_cream() == self.routes_page.request_ice_cream()  # agregar Assert
 
     # Buscar un taxi
     def test_find_driver(self):
-        routes_page = UrbanRoutesPage(self.driver)
+        self.routes_page = UrbanRoutesPage(self.driver)
         self.driver.implicitly_wait(50)  # cambio del timeslep
-        routes_page.search_taxi()
-        order_header_title = routes_page.get_order_header_title()
+        self.routes_page.search_taxi()
+        order_header_title = self.routes_page.get_order_header_title()
         assert  'Buscar automóvil' in order_header_title
 
     # Esperar a que aparezca la información del conductor en el modal
     def test_wait_driver_information(self):
-        routes_page = UrbanRoutesPage(self.driver)
+        self.routes_page = UrbanRoutesPage(self.driver)
         self.driver.implicitly_wait(50)  # aumentar tiempo
-        routes_page.wait_for_driver_info()
-        order_header_title = routes_page.get_order_header_title()
+        self.routes_page.wait_for_driver_info()
+        order_header_title = self.routes_page.get_order_header_title()
         assert 'El conductor llegará' in order_header_title
         
     @classmethod
