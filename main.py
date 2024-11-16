@@ -239,7 +239,8 @@ class TestUrbanRoutes:
         capabilities = DesiredCapabilities.CHROME
         capabilities["goog:loggingPrefs"] = {'performance': 'ALL'}
         cls.driver = webdriver.Chrome()
-
+        
+    # Configurar la dirección
     def test_set_route(self):
        self.driver.get(data.urban_routes_url)
        routes_page = UrbanRoutesPage(self.driver)
@@ -249,18 +250,6 @@ class TestUrbanRoutes:
        routes_page.set_route(address_from, address_to)
        assert routes_page.get_from() == address_from
        assert routes_page.get_to() == address_to
-
-    def test_full_taxi_request_process(self):
-        self.driver.get(data.urban_routes_url)
-        routes_page = UrbanRoutesPage(self.driver)
-
-        # Configurar la dirección
-        address_from = data.address_from
-        address_to = data.address_to
-        self.driver.implicitly_wait(10)  # cambio del timeslep
-        routes_page.set_route(address_from, address_to)
-        assert routes_page.get_from() == address_from
-        assert routes_page.get_to() == address_to
 
     # Seleccionar la tarifa Comfort
     def test_set_comfort(self):
