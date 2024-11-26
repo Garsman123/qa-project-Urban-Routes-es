@@ -167,7 +167,7 @@ class UrbanRoutesPage:
 
     def code_card_input(self):
         self.driver.implicitly_wait(30)
-        self.driver.find_element(*self.card_cvv).send_keys(data.card_code)
+        self.driver.find_element(*self.card_cvv).send_keys(data.card_code + Keys.TAB)
 
     def cvv_code(self):
         self.driver.implicitly_wait(20)
@@ -239,8 +239,7 @@ class TestUrbanRoutes:
         capabilities = DesiredCapabilities.CHROME
         capabilities["goog:loggingPrefs"] = {'performance': 'ALL'}
         cls.driver = webdriver.Chrome()
-        
-    # Configurar la dirección
+
     def test_set_route(self):
        self.driver.get(data.urban_routes_url)
        routes_page = UrbanRoutesPage(self.driver)
